@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>日本株 売買候補スクリーニング</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app">
+    <header class="header">
+      <h1>📈 日本株 売買候補スクリーニング</h1>
+      <p class="subtitle">前営業日の値動き（逆張り・順張り）やテーマ別に、公開データから機械的に候補をリストアップするツールです</p>
+    </header>
+
+    <div class="disclaimer">
+      ⚠️ <strong>本アプリは投資助言・推奨を行うものではありません。</strong>
+      表示される銘柄は公開情報（Yahoo! Finance）を機械的に並べ替えただけの参考情報であり、将来の値上がり・値下がりを保証するものではありません。
+      「前日大きく動いた銘柄」は翌営業日もその方向に動くとは限らず、逆方向に振れることも多々あります。
+      データは取得元の都合により遅延・欠落・取得失敗することがあります。投資の判断は必ずご自身の責任で行ってください。
+    </div>
+
+    <nav class="tabs" id="themeTabs">
+      <button class="tab active" data-theme="gyakubari">逆張り（反発狙い）</button>
+      <button class="tab" data-theme="junbari">順張り（上昇継続狙い）</button>
+      <button class="tab" data-theme="takane">値がさ株</button>
+      <button class="tab" data-theme="haito">高配当株</button>
+      <button class="tab" data-theme="dekidaka">出来高急増</button>
+      <button class="tab" data-theme="shinkou">年初来高値圏</button>
+    </nav>
+
+
+    <section class="theme-desc" id="themeDesc"></section>
+
+    <section class="controls">
+      <label>表示件数
+        <select id="topN">
+          <option value="10">上位10件</option>
+          <option value="20" selected>上位20件</option>
+          <option value="30">上位30件</option>
+        </select>
+      </label>
+      <button id="refreshBtn" class="primary-btn">🔄 最新データを取得</button>
+      <span class="status" id="statusText">未取得</span>
+    </section>
+
+    <section class="result-area">
+      <div id="loadingBox" class="loading-box" style="display:none">
+        <div class="spinner"></div>
+        <div id="loadingDetail">取得中...</div>
+      </div>
+      <div id="errorBox" class="error-box" style="display:none"></div>
+      <div class="table-wrap">
+        <table id="resultTable">
+          <thead>
+            <tr id="resultHead"></tr>
+          </thead>
+          <tbody id="resultBody"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <p>データ出典: Yahoo! Finance（query1.finance.yahoo.com の非公式チャートAPI）。CORS制限のためプロキシ経由で取得します。配当金額のみ手動設定の概算値です。</p>
+      <p>対象銘柄は東証プライム・日経225採用銘柄を中心とした独自ウォッチリスト（約60銘柄）から選定しており、市場全体を網羅するものではありません。</p>
+      <p>本ツールの情報のみに基づく投資判断、またそれによって生じた損失について、作者は一切の責任を負いません。</p>
+    </footer>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
